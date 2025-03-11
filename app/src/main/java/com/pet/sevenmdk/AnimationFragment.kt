@@ -30,18 +30,12 @@ class AnimationFragment : Fragment() {
             )
             insets
         }
-        val pulseAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.pulse_animation)
-
-        binding.pulseImage.startAnimation(pulseAnimation)
-
         binding.songBtn.setOnClickListener {
-            if(isPlay) {
-                binding.songBtn.setImageResource(R.drawable.stop)
-                isPlay = false
-            } else {
-                binding.songBtn.setImageResource(R.drawable.start)
-                isPlay = true
+            if (binding.animated.isAnimating) {
+                binding.animated.cancelAnimation()
             }
+
+            binding.animated.playAnimation()
         }
     }
 }
