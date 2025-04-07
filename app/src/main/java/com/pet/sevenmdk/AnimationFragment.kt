@@ -1,11 +1,14 @@
 package com.pet.sevenmdk
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.pet.sevenmdk.databinding.FragmentAnimationBinding
@@ -36,6 +39,21 @@ class AnimationFragment : Fragment() {
             }
 
             binding.animated.playAnimation()
+            rotateImage(it as ImageView)
         }
+    }
+
+    private fun rotateImage(imageView: ImageView) {
+        val rotateAnimation = ObjectAnimator.ofFloat(
+            imageView,
+            "rotation",
+            0f,
+            360f
+        ).apply {
+            duration = 500
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        rotateAnimation.start()
     }
 }
