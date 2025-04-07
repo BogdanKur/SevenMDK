@@ -1,6 +1,7 @@
 package com.pet.sevenmdk
 
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -40,6 +42,8 @@ class AnimationFragment : Fragment() {
 
             binding.animated.playAnimation()
             rotateImage(it as ImageView)
+            pulseAnimation(binding.left)
+            pulseAnimation(binding.right)
         }
     }
 
@@ -50,10 +54,22 @@ class AnimationFragment : Fragment() {
             0f,
             360f
         ).apply {
-            duration = 500
+            duration = 2000
             interpolator = AccelerateDecelerateInterpolator()
         }
 
         rotateAnimation.start()
+    }
+
+    private fun pulseAnimation(view: View) {
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 1.2f, 1f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 1.2f, 1f)
+        val alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 1f, 0.7f, 1f)
+
+        ObjectAnimator.ofPropertyValuesHolder(view, scaleX, scaleY, alpha).apply {
+            duration = 2000
+            interpolator = OvershootInterpolator()
+            start()
+        }
     }
 }

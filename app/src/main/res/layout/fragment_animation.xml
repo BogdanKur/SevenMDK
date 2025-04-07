@@ -32,6 +32,7 @@
         android:layout_marginBottom="100dp"/>
     
     <com.airbnb.lottie.LottieAnimationView
+        android:visibility="gone"
         android:id="@+id/animated"
         android:layout_width="150dp"
         android:layout_height="220dp"
